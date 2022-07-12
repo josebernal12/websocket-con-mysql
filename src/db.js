@@ -13,7 +13,7 @@ const configMariaDB = {
 const configSQLite3 = {
     client: 'sqlite3',
     connection: {
-      filename: './database/mydb.sqlite'
+      filename: './database/ecommerce.sqlite'
     },
     useNullAsDefault: true
 }

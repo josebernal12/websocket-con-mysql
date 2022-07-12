@@ -44,14 +44,11 @@ const databaseMariadb = async () => {
       // Cuando le agrego esta parte para que me almacene los mensajes me manda un error me dice que enable to open database file, desde que le agrego el database a este archivo me tira ese error
         /*
         else if(!database){
-
             await database.schema.createTable('mensajes', (message) => {
                 message.string("username", 20).notNullable();
                 message.string("mensaje" ,20).notNullable();
                 message.float("resultado", 20).notNullable();
                 message.float("time", 20).notNullable();
-
-
             })
             console.log('table created');
             database.destroy();
@@ -65,7 +62,7 @@ const databaseMariadb = async () => {
             io.emit('server:producto', product)
 
             socket.on('cliente:producto', async products => {
-            product.push(products)
+           product.push(products)
                await MariaDatabase('productos').insert(product)
                 io.emit('server:producto', product)
 
@@ -73,7 +70,7 @@ const databaseMariadb = async () => {
 
             socket.on('cliente:mensaje', async message => {
                 messages.push(message)
-                 await database('mensajes').insert(messages)
+                // await database('mensajes').insert(messages)
                 io.emit('server:mensaje', messages)
             })
         
@@ -86,4 +83,3 @@ const databaseMariadb = async () => {
 
 
 databaseMariadb()
-
