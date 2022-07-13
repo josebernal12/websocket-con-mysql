@@ -51,7 +51,7 @@ formMessage.addEventListener('submit', event => {
   event.preventDefault()
 
   const username = usernameInput.value
-  const message = messageInput.value
+  const mensaje = messageInput.value
   const hours = new Date()
   const fecha = ([hours.getDate(), hours.getMonth(), hours.getFullYear()])
   const time = ([hours.getHours(), hours.getMinutes()])
@@ -60,7 +60,7 @@ formMessage.addEventListener('submit', event => {
 
 
 
-  socket.emit('cliente:mensaje', { username, message, resultado, time })
+  socket.emit('cliente:mensaje', { username, mensaje, resultado, time })
 })
 
 
@@ -68,7 +68,7 @@ socket.on('server:mensaje', data => {
   messagePool.innerHTML = ""
 
   data.forEach(message => {
-    messagePool.innerHTML += `<h2>  <b style= 'color: blue'> ${message.username}:  <b style= 'color: red'> [${message.resultado}]:  [${message.time}]:  <b style= 'color: green'> ${message.message} </h2>`
+    messagePool.innerHTML += `<h2>  <b style= 'color: blue'> ${message.username}:  <b style= 'color: red'> [${message.resultado}]:  [${message.time}]:  <b style= 'color: green'> ${message.mensaje} </h2>`
 
   })
 

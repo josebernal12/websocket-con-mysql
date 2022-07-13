@@ -13,13 +13,13 @@ const configMariaDB = {
 const configSQLite3 = {
     client: 'sqlite3',
     connection: {
-      filename: './database/ecommerce.sqlite'
+      filename: './src/database/ecommerce.sqlite'
     },
     useNullAsDefault: true
 }
-const MariaDatabase = knex(configMariaDB)
-const database = knex(configSQLite3)
+const database = knex(configMariaDB)
+const databaseSqlite = knex(configSQLite3)
 
 module.exports = 
-//database,
-  MariaDatabase
+databaseSqlite,
+database
