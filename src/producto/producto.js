@@ -1,7 +1,7 @@
 const { database } = require('../db');
 
 class Products {
-    constructor(database, tabla) {
+    constructor(tabla) {
         this.connection = database;
         this.tabla = tabla;
     };
@@ -10,7 +10,7 @@ class Products {
     async CreateTableProductos() {
         try {
 
-              if (!this.connection) {
+            if (!this.connection) {
 
                 await this.connection.schema.createTable(this.tabla, articulo => {
                     articulo.increments('id').notNullable().primary()
@@ -40,16 +40,9 @@ class Products {
 
     async getAll() {
         try {
-             const cars = await this.connection(`${this.tabla}`).select('nombre', 'price', 'thumbnail');
-    
-                cars.forEach((car) => {
-                    console.log(`
-                        Nombre: ${car.nombre}
-                        Precio: ${car.price}
-                        Thumbnail: ${car.thumbnail}
-                       
-                    `)
-                })
+            const cars = await this.connection(`${this.tabla}`).select('producto', 'precio', 'thumbnail');
+            return cars
+
         } catch (err) {
             console.log(err)
         };
@@ -66,4 +59,5 @@ class Products {
 };
 
 
-module.exports = new Products(database, 'Contenedor')
+
+module.exports = new Products('Contenedor')

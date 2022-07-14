@@ -5,7 +5,7 @@ const configMariaDB = {
       host: '127.0.0.1',
       user: 'root',
       password: '',
-      database: 'ecommerce'
+      database: 'websocket'
     },
     pool: { min: 0, max: 7 }
 }
@@ -20,6 +20,7 @@ const configSQLite3 = {
 const database = knex(configMariaDB)
 const databaseSqlite = knex(configSQLite3)
 
-module.exports = 
-//databaseSqlite,
+module.exports = {
+databaseSqlite,
 database
+}

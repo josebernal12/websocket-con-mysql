@@ -4,6 +4,7 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const Products = require('./producto/producto')
+const Messages = require('./chat/chat')
 const puerto = process.env.PORT
 const { Server: IOServer } = require('socket.io')
 const expressServer = app.listen(puerto, (error) => {
@@ -17,31 +18,33 @@ const expressServer = app.listen(puerto, (error) => {
 
 const io = new IOServer(expressServer)
 // DECLARATION OF VARIABLES
-const messages = []
+
 
 
 
 //CONFIGURATION 
 app.use(express.static(path.join(__dirname, '/public')))
 
-//CONNECTIONS 
+Products.CreateTableProductos()
+Messages.CreateTableChat()
 
+//CONNECTIONS 
 io.on('connection', async socket => {
     console.log('Se conecto un usuario:', socket.id)
-    io.emit('server:mensaje', messages)
-    io.emit('server:producto', await Products.getProducts())
+    io.emit('server:mensaje', await Messages.getAll())
+    io.emit('server:producto', await Products.getAll())
 
     socket.on('cliente:producto', async data => {
-        const {producto, precio,thumbnail} = data
-       await Products.insertProductos(producto, precio,thumbnail)
-       const productos = await Products.getProducts()
+      await Products.insertProductos(data)
+       const productos = await Products.getAll()
         io.emit('server:producto',productos)
 
     })
 
-    socket.on('cliente:mensaje', message => {
-        messages.push(message)
-        io.emit('server:mensaje', messages)
+    socket.on('cliente:mensaje', async message => {
+        await Messages.insertMessages(message)
+        const mensaje = await Messages.getAll()
+        io.emit('server:mensaje', mensaje)
     })
 
 })
