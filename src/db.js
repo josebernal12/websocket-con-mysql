@@ -21,5 +21,5 @@ const database = knex(configMariaDB)
 const databaseSqlite = knex(configSQLite3)
 
 module.exports = 
-databaseSqlite,
+//databaseSqlite,
 database
